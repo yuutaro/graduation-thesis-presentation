@@ -1,0 +1,43 @@
+:root {
+  --slidev-theme-primary: #003366;
+  --slidev-theme-text: #000000;
+}
+
+.slidev-layout {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+/* Force standard text elements to be black and remove margin from paragraphs */
+.slidev-layout p {
+  color: #000000;
+  margin: 0;
+}
+
+.slidev-layout ul,
+.slidev-layout ol,
+.slidev-layout li {
+  color: #000000;
+}
+
+/* Allow utility classes to override if specifically set (e.g. text-gray-500)
+   However, !important above might override utilities.
+   Better approach: Reset base color.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #003366;
+}
+
+p {
+  color: #000000;
+}
+
+strong {
+  color: #1d4ed8;
+}
