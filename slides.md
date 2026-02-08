@@ -16,13 +16,19 @@ themeconfig:
 
 <h1 class=" text-4xl! font-bold leading-tight">一点物売買プラットフォームの動作検証を目的とした<br>社会的シナリオに則ったデータ生成エージェントの開発</h1>
 
-<div class="pt-12">
-  <p class="text-sm mt-4">2026/02/09</p>
-  <br>
-  <p class="text-lg">指導教員: 植松 幸生 准教授</p>
-  <br>
-  <p class="text-lg">東京理科大学 創域理工学部 情報計算科学科</p>
-  <p class="text-lg">6322087 三笠 悠太郎</p>
+<div class="grid grid-cols-[1fr_auto] gap-4 pt-12 items-end">
+  <div>
+    <p class="text-sm mt-4">2026/02/09</p>
+    <br>
+    <p class="text-lg">指導教員: 植松 幸生 准教授</p>
+    <br>
+    <p class="text-lg">東京理科大学 創域理工学部 情報計算科学科</p>
+    <p class="text-lg">6322087 三笠 悠太郎</p>
+  </div>
+  <div class="flex flex-col items-center opacity-80 mr-24">
+    <img src="/figure/presentation-qr.png" class="h-64 w-auto object-contain" />
+    <span class="text-[10px] text-gray-500">発表資料 (https://yuutaro.github.io/graduation-thesis-presentation/)</span>
+  </div>
 </div>
 
 <!--
@@ -145,8 +151,8 @@ themeconfig:
   </div>
 
   <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 text-xs opacity-90">
-    <strong class="text-gray-600 block mb-1">※ 検証対象（前提）</strong>
-    本研究では、検証の場として「複雑な権利関係を持つCtoCプラットフォーム」を実際に構築し、これをテストベッド（実験環境）として使用する。
+    <strong class="text-gray-600 block mb-1">※ 検証環境（プラットフォーム）</strong>
+    本研究では、提案手法の有効性を検証するためのテストベッドとして、「複雑な権利関係を持つCtoCプラットフォーム」を実際に構築・利用する。
   </div>
 </div>
 
@@ -230,7 +236,8 @@ themeconfig:
 
 # 5. データ生成プロセス
 
-抽象的な着想を、具体的なDBレコードへ変換するパイプライン
+<!-- 抽象的な着想を、具体的なDBレコードへ変換するパイプライン -->
+人間が定義したカテゴリと人物タイプの分布をもとに、社会的シナリオを生成し、構造化データへと変換するエージェント
 
 <div class="flex justify-center my-2">
   <img src="/figure/system-architecture.drawio.png" alt="Architecture" class="h-60 object-contain" />
@@ -313,9 +320,9 @@ themeconfig:
 
 ---
 
-# 7.1. 実験環境: 開発したプラットフォーム
+# 7.1. 検証環境: 開発したプラットフォーム
 
-検証用として、実際にモダンなCtoCプラットフォームを開発。
+検証用テストベッドとして、実際にモダンなCtoCプラットフォームを開発・利用。
 
 
 <div class="grid grid-cols-[1.1fr_0.9fr] gap-8 mt-2">
@@ -756,7 +763,7 @@ RAG ON (GPT-5.2) が生成した「夜間大学・無線同好会」の例。
         <h3 class="font-bold text-blue-800 text-sm">成果</h3>
       </div>
       <ul class="list-disc pl-4 space-y-1 text-xs text-gray-700 leading-tight">
-        <li><strong>LLMデータ生成ワークフローの確立</strong><br>
+        <li><strong>LLMデータ生成エージェントの構築</strong><br>
           <span class="text-[10px] opacity-80">複雑なリレーションを持つWebシステムのテストデータ生成手法を提案・実証。</span>
         </li>
         <li><strong>多様性と品質の両立</strong><br>
