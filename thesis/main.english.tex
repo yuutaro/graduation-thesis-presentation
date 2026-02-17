@@ -1,0 +1,80 @@
+% 更新日2024年1月28日 by Tetsuaki Baba
+\documentclass[a4paper,uplatex]{report}
+% 学部は \documentclass[a4paper,uplatex]{jsarticle}を利用して，\section で論文を構成してください．
+% 修士、博士は \documentclass[a4paper,uplatex]{jsreport} を利用して， \chapter で論文を構成してください．
+% for English users: replace jsarticle -> article or jsreport -> report
+
+\usepackage{iathesis}
+\usepackage[dvipdfmx]{graphicx,xcolor}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{appendix}
+\usepackage{url}
+\urlstyle{same}
+
+\begin{document}
+
+% ソースコード表記は code_listings.tex を参照してください。詳細：https://www.overleaf.com/learn/latex/Code_listing
+\include{code_listings.tex}
+
+% settings for kind of thesis %%%%%%%
+% 卒業論文の場合は \bachelorthesis
+% 卒業作品の場合は \bacheloarthesisartwork
+% 修士論文の場合は \masterthesis
+% 博士論文の場合は \doctorthesis
+% For English Users
+% 卒業論文の場合は \bachelorthesisEN
+% 卒業作品の場合は \bacheloarthesisartworkEN
+% 修士論文の場合は \masterthesisEN
+% 博士論文の場合は \doctorthesisEN
+\masterthesisEN % このサンプルでは修士論文にしています
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 表紙 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Thesis Title}
+\fisicalyear{ FY \currentfisicalyear}
+\supervisor{Supervisor}{your supervisor name} % 指導教員名を入れる
+\studentNumber{student number}
+\author{Given Family} % 自分の氏名
+%\affiliation{東京都立大学\\システムデザイン学部\\インダストリアルアート学科} % 大学院は以下のコメントアウトした所属を参照
+% \affiliation{東京都立大学大学院\\システムデザイン研究科 博士前期課程\\インダストリアルアート学域}
+\affiliation{Master's Course\\Division of Industrial Art\\Graduate School of Systems Design\\Tokyo Metropolitan University}
+
+\submissiondateEN{ 31st, Jan, \currentyear } % 実際の論文提出日にすること
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman} % 要旨はRoman書体で表示
+\setcounter{page}{1} % 1から振り直す
+
+% 副題がある場合は必ず先頭にハイフン（半角）を3つつけること
+\jasummary{論文タイトル}{--- 副題（必要であれば記入）}
+ここには日本語文章のみで論文要旨を記述してください。A4一枚程度の文量を目安としてください。なお修士、博士論文の場合は学位申請で提出した要旨と同一のものでなければなりませんので注意してください。
+
+\summary{Title}{--- Subtitle}
+The author shall describe his/her thesis in English text. 150 words.
+
+% 目次表示の深さ設定 %%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下をコメントアウトすると，subsubsectionまで目次に表示される．数字を減らすと浅く，増やすと深くなる
+% \setcounter{tocdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makemokuji % 目次の作成
+
+\newpage % 改ページ
+
+\chapter{Introduction}
+\chapter{Related Works}
+\chapter{Implementation}
+\chapter{Evaluation}
+\chapter{Result}
+\chapter{Conclusion}
+
+% フッターのページ設定 %%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}  % 論文本体はArabicで表示
+\setcounter{page}{1} % ページ番号を1から振り直す
+\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
+
+

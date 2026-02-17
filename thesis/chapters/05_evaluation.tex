@@ -1,0 +1,357 @@
+\section{評価実験}
+\label{chap:evaluation}
+
+本章では，提案手法である「RAGを用いたデータ生成エージェント」の有効性を検証するために実施した比較実験の結果について述べる．
+実験の目的は，以下の仮説を定量および定性の両面から検証することである．
+\begin{quote}
+	\textbf{仮説}: 過去の生成履歴を参照（RAG）することで，エージェントは「類似内容の重複生成（モード崩壊）」を回避し，結果としてより多様かつ具体的で品質の高いデータを生成できる．
+\end{quote}
+
+\subsection{実験設定}
+以下の条件において，それぞれ1000件のシナリオデータ（User-Project-Itemのセット）を連続生成し，評価用データセットとした．
+
+\begin{table}[h]
+	\centering
+	\caption{実験条件とパラメータ}
+	\label{tab:conditions}
+	\begin{tabular}{l|l|l|c}
+		\hline
+		実験ID         & 基盤モデル (LLM)    & RAG (メモリ参照) & データ数 \\
+		\hline \hline
+		\textbf{A-1} & Gemini 3 Pro   & \textbf{ON} & 1000 \\
+		\textbf{A-2} & Gemini 3 Pro   & OFF         & 1000 \\
+		\textbf{B-1} & Gemini 3 Flash & \textbf{ON} & 1000 \\
+		\textbf{B-2} & Gemini 3 Flash & OFF         & 1000 \\
+		\textbf{C-1} & GPT-5.2        & \textbf{ON} & 1000 \\
+		\textbf{C-2} & GPT-5.2        & OFF         & 1000 \\
+		\textbf{D-1} & GPT-5 Mini     & \textbf{ON} & 1000 \\
+		\textbf{D-2} & GPT-5 Mini     & OFF         & 1000 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+すべての条件において，生成カテゴリは \texttt{PLASTIC\_MODEL}, \texttt{HANDCRAFT}, \texttt{GADGET} の3つを均等に生成するよう指示し，創造性を最大化するためにTemperatureパラメータは \texttt{0.9} に設定した．
+
+\subsection{生成データの実例}
+本実験により生成されたデータの一例として，「夜間大学・無線同好会」というテーマに基づいたシナリオをコードリスト\ref{lst:generated_example}に示す．
+この例では，3名のユーザー（霧島えみ，矢木拓真，水瀬ナオ）と，彼らが共有するプロジェクト（都市電波ノイズ可視化マップ），および制作された作品（Item）が生成されている．
+特に注目すべきは，`User`の`bio`や`Item`の`description`における記述の具体性である．単に「アンテナを作る」だけでなく，「法規リテラシー」や「共同校正」，「可視化は派手さよりも比較できることが重要」といった，具体的かつ専門的な文脈（社会的シナリオ）が一貫して記述されている．
+
+\begin{lstlisting}[caption={生成されたシナリオデータの例（夜間大学・無線同好会）}, label={lst:generated_example}, language=json]
+{
+  "theme": "夜間大学の「電波観測・自作アンテナ同好会」が運営する、都市電波ノイズの“見える化”ガジェット共同制作組織",
+  "category": "GADGET",
+  "structureType": "COMMUNITY",
+  "users": [
+    {
+      "name": "霧島えみ (LEADER)",
+      "bio": "夜間大学の社会人学生。SDRと自作アンテナを社会に接続したい。「都市のノイズは見えない公害」として可視化を推進。",
+      "role": "LEADER"
+    },
+    {
+      "name": "矢木拓真 (MEMBER)",
+      "bio": "金属加工屋。アンテナの「曲げ」と「固定」の沼担当。現場で使える形に落とすのが得意。",
+      "role": "MEMBER"
+    },
+    {
+      "name": "水瀬ナオ (MEMBER)",
+      "bio": "DSP/組込み担当。ノイズの“気配”をUIに落とす役。法規とリテラシーの説明も担当。",
+      "role": "MEMBER"
+    }
+  ],
+  "project": {
+    "name": "都市電波ノイズ可視化マップ",
+    "description": "街の中で増え続けるノイズを測って・比べて・説明できる形にする。法規・電波リテラシーを重視。",
+    "mode": "THEME"
+  },
+  "items": [
+    {
+      "name": "ウォーターフォールUIパック",
+      "description": "夜間観測用テーマ＋ログ出力設定。可視化は派手さよりも「比較できる」ことが重要。",
+      "authorId": "u_minase"
+    },
+    {
+      "name": "小型UHF八木アンテナ",
+      "description": "方向でノイズを読む。組立治具データ付き。ノイズフロアの持ち上がりを見比べる。",
+      "authorId": "u_yagi"
+    }
+  ]
+}
+\end{lstlisting}
+
+\subsection{評価1: 語彙数の増加推移}
+生成されたデータセットの多様性を測る指標として，テキストに含まれる「ユニーク単語数」の増加推移を解析した．もしエージェントが類似した表現ばかり繰り返していれば，語彙数の増加は早期に飽和するはずである．逆に，多様なテーマを生成し続けていれば，語彙数は線形に増加し続ける．
+
+\subsubsection{解析手法}
+各シナリオの \texttt{theme} フィールドを対象に，形態素解析（分かち書き）を行い，自立語（名詞・動詞・形容詞等）の累積ユニーク数をカウントした．
+
+\subsubsection{結果と考察}
+図\ref{fig:vocabulary_growth}に，生成ステップ数に伴う語彙数の増加推移を示す．
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figure/vocabulary_growth_comparison.png}
+	\caption{生成数に伴うユニーク語彙数の増加推移}
+	\label{fig:vocabulary_growth}
+\end{figure}
+
+実験の結果，1000件生成時点での総語彙数は以下の通りとなった．
+
+\begin{itemize}
+	\item \textbf{GPT-5.2}: RAG ONで4,425語に対し，OFFでは3,368語 (\textbf{+31.4\%})
+	\item \textbf{Gemini 3 Flash}: RAG ONで3,041語に対し，OFFでは2,187語 (\textbf{+39.0\%})
+\end{itemize}
+
+すべてのモデルにおいて，RAGを有効にした場合の方が圧倒的に多くの語彙を使用していることが確認された．特にグラフの傾きに注目すると，RAG OFF群（図中暖色系）は後半にかけて飽和傾向（傾きが緩やかになる）が見られるのに対し，RAG ON群（図中寒色系）は直線的な成長を維持している．
+これは，エージェントが記憶を参照し，「未出の単語」や「未開拓のトピック」を能動的に選択していることを強く示唆している．
+
+\subsection{評価2: ベクトル類似度による重複検知}
+次に，生成されたデータ同士がどの程度似通っているか（類似性の程度）を検証した．
+
+\subsubsection{解析手法}
+各シナリオに含まれるすべてのエンティティ（Theme, User, Project, Item）のテキストプロパティ（名前，説明文，属性など）を連結し，単一の文字列としてEmbeddingモデル（\texttt{Google GenAI Embedding: embedding-001}）によりベクトル化した．
+なお，本実験では768次元の埋め込みベクトルを使用し，全ペア（$_{1000}C_2$ 通り）のコサイン類似度分布を計算した．
+
+\subsubsection{結果と考察}
+図\ref{fig:similarity_histogram}にコサイン類似度の分布を示す．
+また，表\ref{tab:similarity_stats}に各モデルにおける類似度の変化と効果量を示す．
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figure/similarity_distribution_grid_v2.png}
+	\caption{生成データ間のコサイン類似度分布（全プロパティ結合Embedding）}
+	\label{fig:similarity_histogram}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\caption{RAG有無による平均類似度の変化と効果量}
+	\label{tab:similarity_stats}
+	\begin{tabular}{l|c|c|c}
+		\hline
+		モデル                     & 平均類似度 (OFF $\to$ ON) & 差分              & Cohen's $d$    \\
+		\hline \hline
+		\textbf{GPT-5.2}        & 0.806 $\to$ 0.785    & \textbf{-0.021} & \textbf{-0.51} \\
+		\textbf{GPT-5 Mini}     & 0.802 $\to$ 0.786    & -0.016          & -0.40          \\
+		\textbf{Gemini 3 Flash} & 0.783 $\to$ 0.767    & -0.016          & -0.39          \\
+		\textbf{Gemini 3 Pro}   & 0.771 $\to$ 0.770    & -0.001          & -0.01          \\
+		\hline
+	\end{tabular}
+\end{table}
+
+% 平均類似度の比較結果は以下の通りである（低いほど多様性が高い）．
+
+実験の結果，Gemini 3 Proを除くすべてのモデルにおいて，RAGを有効にすることで類似度の分布が有意に低下（左方シフト）することが確認された．
+特にGPT-5.2においては，効果量 $d=-0.51$ という中程度の効果が認められ，RAGが「既存のシナリオとの衝突」を強力に回避していることが示された．
+Gemini 3 Proにおいて変化が見られなかった点については，元々のベースモデルが持つ多様性が非常に高く（OFF時ですでに0.771と低い），RAGによる補正の余地が少なかったためと推察される．
+
+\subsection{評価3: LLM Judgeによる定性評価}
+多様性を追求した結果，データの品質（整合性やリアリティ）が損なわれては意味がない．そこで，第三者LLMを用いた定性評価を実施した．20件ずつランダムに抽出したシナリオに対し，LLM Judgeが以下の3観点で評価を行った．
+
+\subsubsection{評価基準}
+各シナリオに対し，以下の3つの観点を5段階でスコアリングした．
+\begin{enumerate}
+	\item \textbf{整合性}: 設定の矛盾がないか．
+	\item \textbf{具体性}: 固有名詞，数値，専門用語が含まれているか．
+	\item \textbf{人間らしさ}: AI特有の機械的な記述ではなく，熱量や生活感があるか．
+\end{enumerate}
+
+\subsubsection{結果概要}
+全4モデルにおけるRAGの有無によるスコア比較を表\ref{tab:judge_results}に示す．
+
+\begin{table}[h]
+	\centering
+	\caption{LLM Judgeによる定性評価結果（各条件20件抽出，5段階評価）}
+	\label{tab:judge_results}
+	\begin{tabular}{l|c|c|c|c}
+		\hline
+		モデル                     & 条件          & 整合性 (Coherence) & 具体性 (Specificity) & 人間らしさ (Human-like) \\
+		\hline \hline
+		\textbf{GPT-5 Mini}     & OFF         & 5.00            & 4.75              & 4.15               \\
+		                        & \textbf{ON} & \textbf{5.00}   & \textbf{4.95}     & \textbf{4.30}      \\
+		\hline
+		\textbf{Gemini 3 Flash} & OFF         & 5.00            & 5.00              & 4.75               \\
+		                        & \textbf{ON} & \textbf{5.00}   & \textbf{5.00}     & \textbf{4.95}      \\
+		\hline
+		\textbf{GPT-5.2}        & OFF         & 5.00            & 5.00              & 5.00               \\
+		                        & ON          & 5.00            & 5.00              & 4.95               \\
+		\hline
+		\textbf{Gemini 3 Pro}   & OFF         & 5.00            & 5.00              & 5.00               \\
+		                        & ON          & 4.95            & 5.00              & 5.00               \\
+		\hline
+	\end{tabular}
+\end{table}
+
+結果として，すべてのモデルにおいて「整合性」はほぼ満点（5.00）を記録し，RAGの有無にかかわらず，提案手法（社会的シナリオを経由する生成パイプライン）自体が高い整合性を保証していることが確認された．
+また，「具体性」や「人間らしさ」についても，条件間での有意な差は見られず，RAGを適用しても生成データの品質が損なわれないことが示された．
+
+\subsubsection{定性的考察：具体性と専門性}
+生成されたシナリオの内容を精査すると，RAGの有無にかかわらず，「専門的な技法」や「強いこだわり」が反映された高品質な記述が多数確認された．以下に，LLM Judgeによって抽出された代表的な事例を示す．
+
+\begin{description}
+	\item[事例1: 専門的具体性の向上] \mbox{} \\
+	      \textbf{テーマ}: 自然風化・天然ウェザリング至上主義「プラスチック盆栽」学会 \\
+	      \textbf{評価コメント}: 「具体的なキット名（RGザク、サザビーVer.Ka）、設置環境（室外機の上）、劣化メカニズム（加水分解、紫外線退色）が極めて詳細かつ論理的に描写されています。塗装＝欺瞞という独自の哲学にも熱量を感じます。」
+
+	\item[事例2: 独自の視点と人間らしさ] \mbox{} \\
+	      \textbf{テーマ}: 巨大人型兵器の足元にある「都市インフラ」景観保存委員会 \\
+	      \textbf{評価コメント}: 「『ロボット本体には関心がない』という特異なテーマが一貫しており、0.2mm真鍮線や座屈、応力集中といった専門用語が多用され解像度が高い。AI特有の不自然さを感じさせない，強いこだわりが反映された内容である．」
+
+	\item[事例3: 現代的な風刺とユーモア] \mbox{} \\
+	      \textbf{テーマ}: デジタル世界の『不快なUI』を物理ガジェットとして再現する \\
+	      \textbf{評価コメント}: 「Cookie同意バナーやreCAPTCHAといったデジタルストレスを物理化するという発想が秀逸。『トロールの快感』といったブラックユーモアを含む記述には、AI生成とは思えない強い人間味が感じられます。」
+\end{description}
+記憶機構は過去のシナリオとの矛盾を回避するために実装した機構であり，生成される個々のデータのクオリティにはほとんど影響しないと考えられる．
+
+\subsection{評価4 数値的類似度と意味的多様性の関係}
+前節までの評価により，RAGの導入がコサイン類似度を低下させ，語彙数を増加させることが確認された．しかし，Embeddingの数値的な類似度が低いことが，必ずしも「人間にとって意味のある多様性」につながっているとは限らない．
+そこで本節では，GPT-5.2 (RAG ON) および Gemini 3 Pro (RAG ON) において生成されたシナリオペアを類似度のレンジ別に抽出し，その内容を比較することで，数値的な類似度がシナリオの構造や意味の多様性をどのように反映しているかを定性的に検証する．
+
+\subsubsection{GPT-5.2}
+実際の生成テキスト（ユーザー設定および代表アイテム）の比較を図\ref{fig:gpt_high_comparison}および図\ref{fig:gpt_low_comparison}に示す．
+
+\begin{figure}[htbp]
+	\centering
+	\scriptsize
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオA: 停電ごっこ運用委員会} \\
+		\textbf{User}: 黒田イサム（終末論系ラジオ番組の常連投稿者。口は悪いが安全規格にはうるさい「停電ごっこ運用委員会」委員長。週末に“世界が終わった体”で暮らすのが趣味。オフグリッドDIYはロマン、BMSは現実。イベントでは必ずブレーカを落とす前にチェックリストを読ませるタイプ...） \\
+		\textbf{Item}: 停電ごっこスターター木箱（配電・照明・最低限通信） \\
+		\textbf{Description}: \\
+		週末の模擬ブラックアウト（停電ごっこ）で、最初に必要なものを「木箱」にまとめたスターターセット。見た目は終末、中身は現実。
+		\begin{itemize}
+			\item 5V/12Vの簡易配電／低消費電力のLED照明／最低限の連絡手段
+			\item \textbf{内容物}: ヒューズ付き配電ブロック（12V系）、USB 5V取り出し（過電流保護あり）、電圧表示（夜間視認優先の控えめ輝度）
+			\item \textbf{注意}: バッテリーは付属しません（電池は各人の責任、でも事故は全員の責任）。自作バッテリー管理BMSのチェック項目は同梱の手順書に従ってください。
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオB: ベランダ・マイクログリッド協議会} \\
+		\textbf{User}: 神名（築14年・400戸規模マンションの管理組合で設備系の議題を担当。ベランダ太陽光と超小型蓄電で“家庭内で完結する省電力ガジェット”を作るのが趣味。DIYは好きだが、共用部ルールと安全監査はもっと大事派。電気工事士ではないので、手を出せる範囲は徹底的に線引きする...） \\
+		\textbf{Item}: 窓際ベランダ太陽光→USB微量充電キット（匿名レビュー付き） \\
+		\textbf{Description}: \\
+		\textbf{ベランダ太陽光}を“置くだけ”で始めるための、超小型構成の部材キット。マンションの共用部ルールを守るため、手すり外側への張り出しや外壁固定は前提にしていません。
+		\begin{itemize}
+			\item \textbf{できること}: 晴天の短時間で、USB機器へ“ちょっと足す”程度の給電。
+			\item \textbf{同梱部材}: 小型ソーラーパネル、低電流向け充電制御モジュール、小容量セル＋保護基板（構成は監査プロトコルに準拠）、ヒューズ相当（過電流保護）。
+			\item \textbf{騒音・発火リスク監査}: 充電電流は低めに設定。連続充電時の温度ログを添付。
+		\end{itemize}
+	\end{minipage}
+	\caption{GPT-5.2 高類似度ペア (High: 0.89)}
+	\label{fig:gpt_high_comparison}
+\end{figure}
+
+高類似度ペア（図\ref{fig:gpt_high_comparison}）では，「週末のブラックアウトごっこ」と「マンションでのベランダ発電」という異なるテーマを扱っているが，「安全規格や監査プロトコルへの執着」「配電・ヒューズ・保護回路といった泥臭い実務」を重視するコミュニティの姿勢が酷似している．
+
+\begin{figure}[htbp]
+	\centering
+	\scriptsize
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオC: コインランドリー常連『回転する時間』} \\
+		\textbf{User}: ミナ（終電後の街で、コインランドリーだけが明るい。私はそこで回っているものを見ています。洗濯槽の周期、泡の立ち上がり、乾燥の熱が糸に残す癖。服がきれいになる場所というより、都市の生活が一度ほどけて、また巻き取られていく小さな舞台...） \\
+		\textbf{Item}: 泡軌道（Foam Orbit）ピアス／イヤリング｜一点物 \\
+		\textbf{Description}: \\
+		ガラス越しに見える泡は、いつも同じようで、同じではない。このピアスは、深夜のコインランドリーで観察した“泡の帯”を、輪郭として固定する試みです。
+		\begin{itemize}
+			\item \textbf{素材}: リサイクル繊維（古着コットン）、熱で変化する糸。
+			\item \textbf{回転パターン採取}: 洗濯槽の窓を12分割して泡の濃淡を記録。泡が厚く残る区間は編み密度を上げ、途切れが出る区間は糸を飛ばす。
+			\item \textbf{同梱ログ}: 観察時刻（02:06–02:33）、場所、所感（泡が一度厚くなってから急に薄くなる）を記した紙片を封入。
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオD: ガンプラ静音研究コミュニティ} \\
+		\textbf{User}: マキ（平日22時以降しか机に座れない社会人モデラー。防音室なし・ワンルーム・隣室あり。「音を出さない工夫＝制作の自由度」と考えていて、静音工具の比較、サイレント改造の手順、作業音ログを地道に残すタイプ...） \\
+		\textbf{Item}: RX系 クリック関節の“カチ音”低減チューニング \\
+		\textbf{Description}: \\
+		深夜にポージング確認してると、関節の「カチッ」が響く。保持力を落としすぎず、音を丸めるための調整。
+		\begin{itemize}
+			\item \textbf{手順}: 分解前に布を敷く（落下音対策）。クリック部の当たり面を超微量面取り。受け側に薄いテープを点貼り。
+			\item \textbf{作業音ログ}: 時間帯（23:40〜00:25）、音の種類（クリック音・高音）、対策（布二重敷き）、体感（「カチッ」→「コクッ」に変化）。
+		\end{itemize}
+	\end{minipage}
+	\caption{GPT-5.2 低類似度ペア (Low: 0.74)}
+	\label{fig:gpt_low_comparison}
+\end{figure}
+
+一方，低類似度ペア（図\ref{fig:gpt_low_comparison}）では，どちらも「ログを取る」という行為を行っているが，その目的が対照的である．シナリオCは「泡の揺らぎや熱の余韻」という\textbf{感性的・詩的な現象}を記録して作品に昇華させているのに対し，シナリオDは「dBや振動」という\textbf{物理的・工学的な現象}を記録して騒音対策という実利に変えている．
+
+\subsubsection{Gemini 3 Pro}
+Gemini 3 Pro (RAG ON) の比較事例を図\ref{fig:gemini_high_comparison}および図\ref{fig:gemini_low_comparison}に示す．
+
+\begin{figure}[htbp]
+	\centering
+	\scriptsize
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオE: AnatomyModeler\_K} \\
+		\textbf{User}: AnatomyModeler\_K（架空の『第3工科大学・機械構造学科』で教鞭を執っているという設定のモデラー。模型を「玩具」ではなく「工業製品のサンプル」または「解剖学標本」として捉え、徹底的な内部構造の再現と、それを可視化するためのカットモデル制作を行う...） \\
+		\textbf{Item}: 1/100 MS脚部アクチュエータ構造断面 \\
+		\textbf{Description}: \\
+		汎用人型機動兵器の膝関節周辺を対象としたカットモデル。
+		\begin{itemize}
+			\item \textbf{制作のポイント}: 設定画には存在するがキットで省略された「流体パルス伝達パイプ」をスクラッチビルド。
+			\item \textbf{切断面の処理}: 装甲の切断面は「赤色」で塗装し、教育用・解説用のカットモデルであることを強調（実車カタログ等の技法）。
+			\item \textbf{解剖学的視点}: 膝装甲の連動スライドギミックと油圧ピストンの同期を観察できるよう、メインアーマーを正中線でカット。
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオF: Dr. Cross-Section / 断面解剖研究所} \\
+		\textbf{User}: Dr. Cross-Section（「装甲は嘘をつくが、フレームは真実を語る」。既成のキットを外科手術の如く切断し、内部メカニズムを露出させる『カットモデル』専攻。ウェザリングはノイズ。清潔な手術室で鋼鉄の巨人の内臓を愛でたい...） \\
+		\textbf{Item}: 【RX系】正中矢状断面：コアブロックシステムの機能的配置 \\
+		\textbf{Description}: \\
+		1/100スケールキットを使用し、エッチングノコによる手作業で正中線から完全に二分割した作品。
+		\begin{itemize}
+			\item \textbf{解剖学的ポイント}: コアブロック周辺の変形ヒンジ構造と、パイロットシートの衝撃吸収ダンパーをプラ板で新造。
+			\item \textbf{塗装}: 露出したフレーム断面はシルバー、切断面のエッジを蛍光レッドでハイライトし、「切断面であること」を強調。博物館展示風のフィニッシュ。
+		\end{itemize}
+	\end{minipage}
+	\caption{Gemini 3 Pro 高類似度ペア (High: 0.95)}
+	\label{fig:gemini_high_comparison}
+\end{figure}
+
+Gemini 3 Proの高類似度ペア（図\ref{fig:gemini_high_comparison}）は，類似度0.95という高い値を示した．両者とも「架空メカの解剖」「切断面の赤色塗装」というポイントが重複している．
+
+\begin{figure}[htbp]
+	\centering
+	\scriptsize
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオG: CyberMonk\_Logic (サイバー仏教)} \\
+		\textbf{User}: CyberMonk\_Logic（元組み込みエンジニア、現・在宅僧侶。テクノロジーによる功徳（Merit）の最大化と自動化を研究する「Cyber-Buddhism」の実践者。はんだ付けは動禅であり、回路設計はマンダラ構築...） \\
+		\textbf{Item}: PCB Talisman: 厄除け回路基板 v2.0 \\
+		\textbf{Description}: \\
+		従来の紙製のお守りを、FR-4ガラスエポキシ基板で再定義したPCB Talisman。
+		\begin{itemize}
+			\item \textbf{技術仕様}: 4層基板の内層に般若心経のバイナリデータを銅箔パターンとして埋め込み、通電によりデジタルな結界を展開。
+			\item \textbf{実装}: 中央のMCUが乱数生成により24時間体制で吉凶をシミュレートし、最適な運気をLEDインジケータで可視化。
+		\end{itemize}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[t]{0.48\textwidth}
+		\textbf{シナリオH: 特定外来生物資源化プロジェクト} \\
+		\textbf{User}: 郷田博士（元環境保全研究所の生物学者。日本の在来種を脅かす「特定外来生物」の駆除活動に参加する中で、奪った命を廃棄することへの葛藤から、それらを「ジビエレザー」として昇華させる道を選んだ...） \\
+		\textbf{Item}: 【特定外来生物】ヌートリアの撥水ファーポーチ \\
+		\textbf{Description}: \\
+		河川の土手を掘り崩す大型齧歯類「ヌートリア」の毛皮を使用したポーチ。
+		\begin{itemize}
+			\item \textbf{生態学的特徴}: 水辺で生活するため、驚異的な撥水性と保温性を持つ。ビーバーに似た濃密な手触り。
+			\item \textbf{制作背景}: 兵庫県の河川敷で行った個体数調整（駆除）の際に捕獲した個体。肉はコンポスト化し、最も美しい冬毛の部分をなめし加工。命の温かみを道具に変換。
+		\end{itemize}
+	\end{minipage}
+	\caption{Gemini 3 Pro 低類似度ペア (Low: 0.73)}
+	\label{fig:gemini_low_comparison}
+\end{figure}
+
+低類似度ペア（図\ref{fig:gemini_low_comparison}）では，「デジタルによる精神の自動化（サイバー仏教）」と「狩猟による生命の資源化（外来生物）」という，テクノロジーと自然の対極的な世界観が提示されている．
+
+% \subsection{総合考察}
+% 以上の比較から，モデルごとの多様性の性質が明らかになった．
+% \begin{itemize}
+% 	\item \textbf{GPT-5.2}: 「実務的な運用」や「安全管理」といった，リアリティのある社会的な「型」を作り出す能力に長ける．類似度が低い場合でも，同じ「ログを取る」という行為の中で目的（感性/実用）を使い分けるなど，理路整然とした多様性を見せる．
+% 	\item \textbf{Gemini 3 Pro}: 「解剖模型」のようなマニアックなトピックを深く掘り下げる傾向がある一方で，テーマが異なれば「サイバー仏教」から「ジビエ」まで，世界観の根底から異なる飛躍的な多様性を示す．
+% \end{itemize}
+% 本システムのような「動作検証用データ生成」の文脈では，GPT-5.2のような「ありそうな構造」を保ちつつ，RAGでそのバリエーションを広げるアプローチが，リアリティと網羅性のバランスにおいて適していると言える．
+
+\subsection{まとめ}
+以上の実験結果より，RAGを用いた記憶機構は，単にデータの重複を防ぐだけでなく，エージェントに多様なデータの生成を促し，結果として高品質かつ高密度なテストデータを生成させるための補助となることが実証された．

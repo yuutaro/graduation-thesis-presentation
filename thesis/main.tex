@@ -1,0 +1,159 @@
+% Last Update: 2025.01.23 by Tetsuaki Baba
+% Last Update: 2024.01.28 by Tetsuaki Baba
+
+% 学部は \documentclass[a4paper,uplatex]{jsarticle}を利用して，\section で論文を構成してください．
+% 修士、博士は \documentclass[a4paper,uplatex]{jsreport} を利用して， \chapter で論文を構成してください．
+% for English users: replace jsarticle -> article or jsreport -> report
+\documentclass[a4paper,uplatex]{jsarticle}
+\usepackage{fix-cm}
+
+% 必要なパッケージを読み込み（ここはいじらない）%%%%%
+\usepackage{iathesis}
+\usepackage[dvipdfmx]{graphicx,xcolor}
+\usepackage{listings}
+\usepackage{fancyvrb}
+\usepackage{appendix}
+\usepackage[utf8]{inputenc}
+\usepackage{csquotes}
+\usepackage[english]{babel}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 文献引用設定 %%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Default: [文献番号] スタイル sorting=none: 文献が論文中に登場する順序．このほか，nty, nyt等ある．sort オプションについては 次のリンクを参照する https://ja.overleaf.com/learn/latex/Bibliography_management_with_biblatex#Reference_guide
+\usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+
+% 著者名(西暦）スタイル style=authoryearの場合は引用表記が「名,姓」の順になるので，bib内のauthorを修正すること
+% \usepackage[backend=biber,style=numeric,sorting=none]{biblatex}
+
+% 文献読み込み
+\addbibresource{references.bib}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{url}
+\urlstyle{same}
+
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes, arrows.meta, calc, fit}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    numbers=left,
+    numberstyle=\scriptsize,
+    stepnumber=1,
+    numbersep=8pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{white},
+    literate=
+     *{0}{{{\color{blue}0}}}{1}
+      {1}{{{\color{blue}1}}}{1}
+      {2}{{{\color{blue}2}}}{1}
+      {3}{{{\color{blue}3}}}{1}
+      {4}{{{\color{blue}4}}}{1}
+      {5}{{{\color{blue}5}}}{1}
+      {6}{{{\color{blue}6}}}{1}
+      {7}{{{\color{blue}7}}}{1}
+      {8}{{{\color{blue}8}}}{1}
+      {9}{{{\color{blue}9}}}{1}
+      {:}{{{\color{red}{:}}}}{1}
+      {,}{{{\color{red}{,}}}}{1}
+      {\{}{{{\color{blue}{\{}}}}{1}
+      {\}}{{{\color{blue}{\}}}}}{1}
+      {[}{{{\color{blue}{[}}}}{1}
+      {]}{{{\color{blue}{]}}}}{1},
+}
+
+\usepackage{CJKutf8}
+
+\begin{document}
+
+% ソースコード表記は code_listings.tex を参照してください。詳細：https://www.overleaf.com/learn/latex/Code_listing
+\include{code_listings.tex}
+
+% settings for kind of thesis %%%%%%%
+% 卒業論文の場合は \bachelorthesis
+% 卒業作品の場合は \bacheloarthesisartwork
+% 修士論文の場合は \masterthesis
+% 博士論文の場合は \doctorthesis
+% For English Users
+% 卒業論文の場合は \bachelorthesisEN
+% 卒業作品の場合は \bacheloarthesisartworkEN
+% 修士論文の場合は \masterthesisEN
+% 博士論文の場合は \doctorthesisEN
+\bachelorthesis % このサンプルでは卒業論文にしています
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 表紙 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for English users, Please replace Japanese words into English
+% \title{一点物売買プラットフォームの機能に対する動作検証を目的とした社会的シナリオに則ったデータ生成エージェントの開発}
+\title{一点物売買プラットフォームの動作検証を目的とした社会的シナリオに則ったデータ生成エージェントの開発}
+\fisicalyear{ \currentfisicalyear 年度}
+%\fisicalyear{ FY \currentfisicalyear }
+\supervisor{指導教員}{植松 幸生 准教授} % 氏名欄に指導教員名を入れる
+\studentNumber{6322087}
+\author{三笠 悠太郎} % 自分の氏名
+\affiliation{東京理科大学 創域理工学部 情報計算科学科} % 大学院は以下のコメントアウトした所属を参照
+% \affiliation{東京都立大学大学院\\システムデザイン研究科 博士前期課程\\インダストリアルアート学域}
+% \affiliation{Master's Course\\Division of Industrial Art\\Graduate School of Systems Design\\Tokyo Metropolitan University}
+
+\submissiondate{ \currentyear 年2月15日} % 実際の論文提出日にすること
+\maketitle
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagenumbering{roman} % 要旨はRoman書体で表示
+\setcounter{page}{1} % 1から振り直す
+
+% 副題がある場合は必ず先頭にハイフン（半角）を3つつけること
+\jasummary{一点物売買プラットフォームの動作検証を目的とした社会的シナリオに則ったデータ生成エージェントの開発}{}
+
+% 本研究では，一点物売買プラットフォームの開発を行っている．本プラットフォームは，作品の背景にあるストーリーや，クリエイターとコミュニティの社会的関係性を表現することを特徴としており，これをシステム上で実現するために，データベースのリレーション構造は社会的シナリオを反映して複雑化している．このようなサービスの開発初期段階において，システムのUI表示や検索システムの有用性のような，多数のデータが存在する状況が必要な機能を適切に検証するためには，サービス固有の複雑なデータ構造上で整合性を保ったテストデータが不可欠である．しかし，社会的シナリオを反映したデータを手動で大量に用意することは困難であり，従来のランダムなダミーデータ生成手法では，リレーションの整合性やコンテンツの意味的な文脈を再現できないという課題があった．
+
+近年，クリエイターエコノミーの発展に伴い，作品単体の価値だけでなく，その背景にあるストーリーやクリエイターとファンが形成するコミュニティの文脈を統合して流通させるWebプラットフォームの重要性が高まっている．このようなプラットフォームにおいて，ユーザー間の社会的相互作用や共同制作プロジェクトといった関係性を記録・表現する必要があるため，そのデータベースは社会的シナリオを反映した複雑なリレーション構造となる傾向にある．このようなプラットフォームの開発初期段階において，UI表示や検索システムの有用性を検証するためには，サービス固有のデータ構造と整合性を保った大量のテストデータが不可欠である．しかしながら，社会的シナリオを反映したデータを手動で大量に用意することは困難であり，従来のランダムなダミーデータ生成手法では，リレーションの整合性やコンテンツの意味的な文脈を再現できないという課題があった．
+
+% :LATEST
+本研究では，大規模言語モデル（LLM）を用いて，ユーザの社会的背景や文脈を記述した社会的シナリオを構築し，それに基づいてサービス固有のリレーションを持つデータ群を生成するエージェントを開発した．本エージェントは，LangGraphを用いたステートマシンとして設計されており，データベースを活用した記憶機構を実装している．これにより，過去に生成したデータと重複しない多様なコンセプトを立案し，そのコンセプトに基づいて相互に整合性の取れたユーザー，プロジェクト，作品群をひとまとまりの単位として,本プラットフォーム上のデータ構造に特化した，自律的にデータを生成・投入する能力を持つデータ生成エージェントを開発した．
+
+提案手法の有効性を検証するため，実験環境として一点物取引に特化したWebプラットフォームを開発し，google, Open AIの４つの基盤モデルに対して本エージェントを適用して1000件のデータ生成実験を行った．評価の結果，過去の生成履歴を参照する記憶機構を導入することで，Gemini 3 Flashにて生成される語彙数が39.0\%増加し，GPT-5.2においては全生成データのコサイン類似度分布が効果量 $d=-0.51$ で低下した．これらの結果は，記憶機構が生成内容の重複や特定のパターンへの収束を抑制し，生成されるデータセット全体の多様性を向上させることを示している．本研究は，LLMを用いた社会的シナリオ生成が，開発初期段階においても実運用環境に近い整合性と多様性を持つテストデータの生成に有効であることを実証した．
+
+\summary{Title}{--- Subtitle}
+The author shall describe his/her thesis in English text. 150 words.
+
+% 目次表示の深さ設定 %%%%%%%%%%%%%%%%%%%%%%%%%
+% 以下をコメントアウトすると，subsubsectionまで目次に表示される．数字を減らすと浅く，増やすと深くなる
+% \setcounter{tocdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makemokuji % 目次の作成
+
+\newpage % 改ページ
+
+% フッターのページ設定 %%%%%%%%%%%%%%%%%%%%%%%%%
+\pagenumbering{arabic}  % 論文本体はArabicで表示
+\setcounter{page}{1} % ページ番号を1から振り直す
+\pagestyle{plain}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% 章の読み込み
+\input{chapters/01_introduction.tex}
+\input{chapters/02_related_work.tex}
+\input{chapters/03_proposal.tex}
+\input{chapters/04_platform.tex}
+\input{chapters/05_evaluation.tex}
+\input{chapters/06_conclusion.tex}
+
+% 謝辞
+\section*{謝辞}
+\addcontentsline{toc}{section}{謝辞}
+本研究を遂行するにあたり，多大なるご指導とご助言を賜りました，指導教員の植松幸生准教授に深く感謝いたします．
+また，日頃より議論を交わし，有益な示唆を頂いた研究室の皆様に心より感謝申し上げます．
+
+% 参考文献
+\renewcommand\refname{参考文献}
+\printbibliography
+
+% 付録
+\appendix
+% \section{補足資料}
+% \label{sec:appendix}
+
+\end{document}

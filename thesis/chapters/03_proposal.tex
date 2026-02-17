@@ -1,0 +1,160 @@
+\section{提案手法：社会的シナリオに基づくデータ生成エージェント}
+\label{chap:proposal}
+
+本章では，一点物売買プラットフォームのような複雑なリレーション構造を持つシステムに対し，整合性と多様性を両立したテストデータを自律的に生成するエージェントシステムについて述べる．
+
+\subsection{アプローチの概要}
+従来，ウェブサービスの開発におけるテストデータ生成には，Faker.js等のライブラリを用いたランダム生成や，固定のダミーデータセットの流用が一般的であった．しかし，これらの手法では「ユーザーAがプロジェクトBを立ち上げ，その文脈に沿った作品Cを制作し，ユーザーDがそれを購入する」といった，エンティティ間の意味的な整合性（社会的シナリオ）を再現することは困難である．
+本研究では，大規模言語モデル（LLM）を中核に据え，データの生成プロセスを「脚本生成」「演出」「設計」という映画制作の工程に着想を得た段階的な生成プロセスに分解することで，この課題を解決する．
+提案するエージェントは，単に単一のテーブルデータを埋めるのではなく，「一貫した社会的文脈」を生成単位とする．これにより，生成されたデータ群はデータベースのリレーション制約（外部キー制約）を満たすだけでなく，人間が読んでも不自然さを感じない「物語」としての整合性を保持する．
+
+\subsection{システムアーキテクチャ}
+本エージェントは，LangGraph \cite{langchain} を用いたステートマシンとして実装されている．
+LangGraphは，LLMエージェントの制御フローをグラフ構造（ノードとエッジ）として定義するフレームワークであり，Yaoら \cite{yao2023react} が提案したReActパターンなどの複雑な推論プロセスを容易に実装可能にする．
+本研究では，各ノードを特定の役割（Director Agent, Scenarist Agent, Designer Agent, Saver Agent）を持つ専門家として定義し，共有された状態を更新しながらパイプライン処理を行うアーキテクチャを採用した．図\ref{fig:agent_architecture}にシステム全体の構成を示す．
+
+\subsubsection{ステートマシンの構成}
+エージェントの処理フローは以下の4つの主要ノードによって構成される．
+
+\begin{enumerate}
+	\item \textbf{Director Agent}:
+		生成プロセス全体の指揮を執り，データの分布（カテゴリバランス）を管理する．
+		過去の生成ログを参照し，現在不足しているカテゴリや構造タイプを特定する．本ノードはLLMを使用せず，あらかじめ定義された確率モデル（Distribution Matrix）に基づき，次に生成すべき「枠組み（例：ガジェットカテゴリ・組織型構造）」を決定し，下流のDesigner Agentへ指示を発行する．
+
+	\item \textbf{Designer Agent}:
+		Director Agentから渡された抽象的な枠組みに基づき，具体的な「シナリオのコンセプト」を立案する．
+		この段階で記憶機構（RAG）を活用し，過去に生成された類似シナリオと重複しないよう，ユニークなテーマやトーン（例：「深夜ラジオのリスナー交流」や「退廃的なサイバーパンク」）を決定する．
+		コードリスト\ref{lst:prompt_designer}に，本エージェントのシステムプロンプトを示す．
+
+		\begin{lstlisting}[caption={Designer Agent（コンセプト立案）のシステムプロンプト}, label={lst:prompt_designer}, basicstyle=\ttfamily\footnotesize, breaklines=true]
+			あなたはテストデータ生成のための「構成作家」です。
+			指定された「カテゴリ」と「構造タイプ」に基づいて、具体的でユニークなシナリオのコンセプトを立案してください。
+
+			## プラットフォームの定義
+			このプラットフォームは、現実世界のユーザーが、自分の制作した作品（模型、手芸、イラストなど）やコレクションを展示・売買するためのCtoCサービス（ArtSquare）です。
+			作中の登場人物や兵器そのものを生成するのではなく、「それを趣味として楽しむ人々」のシナリオを作成してください。
+
+			## 指示
+			- 既存のシナリオとは異なる視点、設定、トーンで企画してください。
+			- ニッチな設定や、エッジの効いた設定を歓迎します。
+		\end{lstlisting}
+
+	\item \textbf{Scenarist Agent}:
+		Designer Agentが作成したコンセプト指示書に基づき，具体的なデータ（User, Project, Item）を生成する．
+		最新のLLMが持つStructured Output機能を利用し，自然言語による物語の記述と，データベーススキーマ（JSON Schema）へのマッピングを同時に実行する．これにより，文脈的な整合性と技術的な整合性（外部キー制約等）を同時に満たすデータを生成する．
+		コードリスト\ref{lst:prompt_scenarist}に，本エージェントのシステムプロンプトを示す．
+
+		\begin{lstlisting}[caption={Scenarist Agent（データ実装）のシステムプロンプト}, label={lst:prompt_scenarist}, basicstyle=\ttfamily\footnotesize, breaklines=true]
+			あなたは架空のクリエイタープラットフォーム(ArtSquare)のデータを生成する「脚本家」です。
+			与えられた「カテゴリ」と「社会構造(Structure Type)」に基づいて、
+			整合性の取れた一つの小さな社会（シナリオクラスター）を生成してください。
+
+			## 重要な前提
+			- ArtSquareはCtoCの創作・ホビー・コレクションのプラットフォームです。
+			- 生成されるItemは、現実的に個人が売買・展示できるもの（模型、手芸、同人誌、素材、データなど）に限られます。
+
+			## 制約事項
+			- User, Project, Item の各データを作成すること。
+			- tempId を使用して、生成データ内で矛盾のないリレーションを構築すること。
+			- DescriptionはMarkdown形式で、読み応えのある記事のように書くこと。
+			- Bioや説明文の口調は、設定された「ペルソナ」や「カテゴリの文化」に合わせること。
+		\end{lstlisting}
+
+	\item \textbf{Saver Agent}:
+		生成された構造化データをデータベースに保存すると同時に，その内容をベクトル化（Embedding）し，エージェントの長期記憶に格納する．これにより，次回のDesigner Agentの推論時に参照可能な状態とする．
+\end{enumerate}
+
+\begin{figure}[t]
+	\centering
+	\begin{tikzpicture}[
+			node distance=1.5cm and 1.0cm,
+			box/.style={draw, rectangle, rounded corners, align=center, minimum width=3cm, minimum height=1.5cm, fill=white, thick},
+			db/.style={draw, cylinder, shape border rotate=90, aspect=0.25, align=center, minimum width=2.5cm, minimum height=2cm, fill=white, thick},
+			arrow/.style={-Latex, thick},
+			dashed_arrow/.style={-Latex, thick, dashed}
+		]
+		% Main Pipeline Nodes
+		\node[box] (director) {\textbf{Director}};
+		\node[box, right=of director] (designer) {\textbf{Designer}};
+		\node[box, right=of designer] (scenarist) {\textbf{Scenarist}};
+		\node[box, right=of scenarist] (saver) {\textbf{Saver}};
+
+		% Memory Node (Placed below)
+		\node[db, below=2cm of designer] (memory) {\textbf{Memory}\\(Vector DB)};
+
+		% App DB Node
+		\node[db, below=2cm of scenarist] (app_db) {\textbf{App DB}\\(PostgreSQL)};
+
+		% Pipeline Connections
+		\draw[arrow] (director) -- node[above, font=\footnotesize] {指令 (Task)} (designer);
+		\draw[arrow] (designer) -- node[above, font=\footnotesize] {企画 (Concept)} (scenarist);
+		\draw[arrow] (scenarist) -- node[above, font=\footnotesize] {データ (Data)} (saver);
+		\draw[arrow] (saver) |- node[pos=0.7, right, font=\footnotesize] {データ投入} (app_db.east);
+
+		% RAG / Memory Connections
+		\draw[dashed_arrow] (designer.south) -- ++(0,-0.5) -| node[pos=0.25, below, font=\footnotesize] {類似検索 (RAG)} (memory.north);
+		\draw[dashed_arrow] (saver.south) -- ++(0,-0.5) -| node[pos=0.25, below, font=\footnotesize] {ベクトル保存} (memory.east);
+
+		% Loop connection
+		\draw[arrow, thick, rounded corners=15pt] (saver.north) -- ++(0, 0.8) -| node[pos=0.25, above, font=\footnotesize] {目標件数に達するまで繰り返し} (director.north);
+
+		% Background Frame (Optional, for visual grouping)
+		\node[draw, dashed, inner sep=0.5cm, fit=(director) (saver), label=above:LangGraph Pipeline] {};
+
+	\end{tikzpicture}
+	\caption{社会的シナリオ生成エージェントのシステムアーキテクチャ}
+	\label{fig:agent_architecture}
+\end{figure}
+
+\subsection{社会的シナリオのデータモデル}
+本エージェントが生成するデータの最小単位である「シナリオクラスター」は，以下の3層構造を持つ．この構造は，実験対象とするプラットフォーム（第4章で詳述）のデータモデルと1対1で対応している．
+
+\subsubsection{Concept}
+すべてのデータの起点となる「テーマ」である．ここには，活動のジャンル（例：Handcraft, Gundam），動機（例：リサイクル，教育，偏愛），および雰囲気（例：Cyberpunk, Nostalgic）が含まれる．RAGによる重複排除は，主にこのConceptレベルで行われる．
+
+\subsubsection{Community}
+Conceptを実現するために集まった人々の定義である．
+\begin{itemize}
+	\item \textbf{Organizer}: プロジェクトの主催者．強い動機とリーダーシップを持つ．
+	\item \textbf{Collaborator}: 協力者．技術提供や資材提供など，主催者を補完する役割を持つ．
+\end{itemize}
+LLMは，これらの登場人物に対し，性格特性や背景ストーリーを付与し，Userプロフィールの自己紹介文などを生成する．
+
+\subsubsection{Output}
+コミュニティ活動の結果として生み出された「作品」である．各作品には，以下の要素が付与される．
+\begin{itemize}
+	\item \textbf{Narrative}: その作品がなぜ作られたかという背景．
+	\item \textbf{Spec}: 素材，サイズ，重量などの物理的特性．
+	\item \textbf{Log}: 制作過程の記録や，使用されたツールの履歴．
+\end{itemize}
+
+\subsection{記憶機構とRAG}
+本研究の核となる技術的特徴は，エージェントが「過去に自分が何を作ったか」を記憶し，それを参照しながら次の生成を行う点にある．これにより，生成数が増えても「ネタ被り」を防ぎ，常に新しいパターンを模索し続けることが可能となる．
+
+\subsubsection{ベクトル検索による重複検知}
+記憶機構の実装には，軽量かつ高速なベクトル検索ライブラリである \texttt{sqlite-vec} を採用した．
+エージェントが新たなシナリオを生成する際，以下のプロセスを実行する．
+
+\begin{enumerate}
+	\item \textbf{Director Agent}: 次に生成すべきカテゴリと構造を決定し，タスクを発行する．
+	\item \textbf{Designer Agent}: タスクに基づき，ベクトルデータベースから類似する過去のシナリオ（上位N件）を検索する．
+	\item 検索された既存シナリオをPromptに含め，\textbf{「これらとは異なる，新規の観点を持つシナリオを作成せよ」}という制約のもと，新しいコンセプトを立案する．
+	\item \textbf{Scenarist Agent}: 確定したコンセプトに基づき，詳細なデータを実装する．
+\end{enumerate}
+
+このRAGループにより，エージェントは自己複製的な生成を回避し，探索空間を強制的に広げることが可能となる．実験結果（第5章）で示される通り，この機構は語彙数やアイデアの多様性に劇的な向上をもたらした．
+
+\subsection{プロンプトエンジニアリング}
+LLMに対して「リアルなデータ」を生成させるために，以下のプロンプト戦略を採用した．
+
+\subsubsection{Few-Shot Prompting with Anti-Patterns}
+良質な例だけでなく，避けるべき例を明示的に与えた．
+特に，「LLMが生成する傾向にある典型的なパターン」を禁止事項として列挙した．
+\begin{itemize}
+	\item 禁止用語：「革新的な」「ソリューション」「多様なニーズ」「シームレスな」等の一般的なマーケティング用語．
+	\item 推奨スタイル：個人の嗜好や生活様式に焦点を当てた記述．
+\end{itemize}
+
+\subsubsection{Persona Adoption}
+各ノードにおいて，LLMに明確なペルソナを与えることで，出力のトーンを制御した．
+例えばDesigner Agentには，「熟練したデータベース管理者であり，かつ特定のサブカルチャーに精通した言語感覚を持つ」といった複合的なペルソナを設定し，技術的な整合性と人間味のあるテキストの両立を図った．
