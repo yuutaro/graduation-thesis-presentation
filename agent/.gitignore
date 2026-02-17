@@ -1,0 +1,9 @@
+/node_modules
+/.env
+# LangGraph API
+
+# Prisma
+/agent.db
+/src/generated/prisma
+
+*.log

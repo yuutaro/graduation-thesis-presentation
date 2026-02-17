@@ -1,0 +1,12 @@
+{
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+
+  "//comment": "printWidthを巨大にすることで、自動的な折り返し（改行）を防ぎます",
+  "printWidth": 10000,
+
+  "//comment2": "HTML/Markdownなどの折り返しも無効化します",
+  "proseWrap": "never"
+}

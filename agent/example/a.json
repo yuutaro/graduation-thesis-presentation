@@ -1,0 +1,181 @@
+{
+  "values": {
+    "messages": [
+      {
+        "content": "3と4を足して、その結果に5を掛けて",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "id": "68d4d6fd-df38-4926-9cfe-5d415db79cad",
+        "type": "human"
+      },
+      {
+        "content": [
+          {
+            "type": "functionCall",
+            "functionCall": {
+              "name": "add",
+              "args": {
+                "b": 4,
+                "a": 3
+              }
+            }
+          }
+        ],
+        "name": "model",
+        "tool_call_chunks": [
+          {
+            "type": "tool_call_chunk",
+            "id": "9932d978-1f77-4e97-81a2-e4cda0a19055",
+            "name": "add",
+            "args": "{\"b\":4,\"a\":3}"
+          }
+        ],
+        "additional_kwargs": {
+          "__gemini_function_call_thought_signatures__": {
+            "9932d978-1f77-4e97-81a2-e4cda0a19055": "CiQBcsjafL3ZU5ScZBopLNyGtL3Hgp1AVAqJqV+ly5DuS62qdOsKfQFyyNp8hZgmxRl/nD/KaG0w/3oKeXielZaT9yZDVwZXVapzcUMhf0zkVOfJjsoefnjP5tCp3Sxsxyqa2TV5H0DVyB9MzRCj5jHwEYuJa2hGKbgHCq4Edz2GYtASf69HuHduwtIx/vSZgyluOdybe+CY1S4Q2DatsQJFFHe8CtsBAXLI2nxokpZzqGgxsmhMlTok4EQ32Dk+h1I21fOnd6hIboPCGaljhQq+QdfONtlaLqg6qS5Ppcxuk3r2tIfoOHAPc7CjWOu2HtZUnFT/E88ZUJDh6Zq46FFdaB3E74MLYjI+fN+oSykosaE43pNxkjrBVu1A9pg7OiafCFvCwbDtwDPMp+rN6AaT/ocgkRUGNeX4uClMGJZ+GU9xt2yFZwuarrVKv5bXzJnmOZBFGeJYE4CgUgpv1rqec40UOtE7rUPyj2ZT6gGZ7az5kM0NCBTu1xFmfL7UJpKECiIBcsjafFN4jsM6KfF7sh11/CF8f1UQWCy9L3BCkrdvKmwN"
+          }
+        },
+        "response_metadata": {
+          "model_provider": "google-genai"
+        },
+        "tool_calls": [
+          {
+            "name": "add",
+            "args": {
+              "b": 4,
+              "a": 3
+            },
+            "id": "9932d978-1f77-4e97-81a2-e4cda0a19055",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "id": "run-019b7e97-8783-7000-8000-0ad072d4a3b2",
+        "type": "ai"
+      },
+      {
+        "status": "success",
+        "content": "7",
+        "tool_call_id": "9932d978-1f77-4e97-81a2-e4cda0a19055",
+        "name": "add",
+        "metadata": {},
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "id": "run-019b7e97-8ecc-7000-8000-0d14d080d89f-tool-9932d978-1f77-4e97-81a2-e4cda0a19055",
+        "type": "tool"
+      },
+      {
+        "content": [
+          {
+            "type": "functionCall",
+            "functionCall": {
+              "name": "multiply",
+              "args": {
+                "a": 7,
+                "b": 5
+              }
+            }
+          }
+        ],
+        "name": "model",
+        "tool_call_chunks": [
+          {
+            "type": "tool_call_chunk",
+            "id": "142f8d41-e297-47b0-825a-9c03b7e08362",
+            "name": "multiply",
+            "args": "{\"a\":7,\"b\":5}"
+          }
+        ],
+        "additional_kwargs": {
+          "__gemini_function_call_thought_signatures__": {
+            "142f8d41-e297-47b0-825a-9c03b7e08362": "CikBcsjafMoGkLbl32Srpb636OzFh6KNPFrLo+RGOsjIr8903rCaNvwTfApbAXLI2nwFs+ZUgjKReaETzB9FaBRub9LVlVZhHuRBayFvK3n69ozuSQdvlOxWOYFYGCmVlEEs2uV2FkFxX+yNmfuHjpKYrv8AxsA+q/axL5IHIPPgxRcWibexgQqtAQFyyNp85GvxxicJtR9uFCWe7a51uEa1EwHHyUTGGDyzjY+ztgh25/vp/T25A/BeYYfmaKGGY9q++12Nn8BexeIajT29K9AqG9lrNAIBsbr6i5vAvCPt4vPTLTj8EC1xdyxWUN2uSFH1g1Wu8qRDiS8vO7PPsxGBZ4XlR82sa50SvOw9ccnD25aYTPn5cc89uUXLe6i2EamJzwkaHYo6Y9UQWEtEITErjLXG4G7X"
+          }
+        },
+        "response_metadata": {
+          "model_provider": "google-genai"
+        },
+        "tool_calls": [
+          {
+            "name": "multiply",
+            "args": {
+              "a": 7,
+              "b": 5
+            },
+            "id": "142f8d41-e297-47b0-825a-9c03b7e08362",
+            "type": "tool_call"
+          }
+        ],
+        "invalid_tool_calls": [],
+        "id": "run-019b7e97-8ecf-7000-8000-0efbb5d6442a",
+        "type": "ai"
+      },
+      {
+        "status": "success",
+        "content": "35",
+        "tool_call_id": "142f8d41-e297-47b0-825a-9c03b7e08362",
+        "name": "multiply",
+        "metadata": {},
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "id": "run-019b7e97-97a3-7000-8000-0dacb30ea9f4-tool-142f8d41-e297-47b0-825a-9c03b7e08362",
+        "type": "tool"
+      },
+      {
+        "content": "3と4を足すと7になり、その7に5を掛けると35になります。",
+        "additional_kwargs": {
+          "__gemini_function_call_thought_signatures__": {}
+        },
+        "response_metadata": {
+          "model_provider": "google-genai"
+        },
+        "tool_call_chunks": [],
+        "id": "run-019b7e97-97a6-7000-8000-0e733038c986",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "type": "ai"
+      },
+      {
+        "content": "先程の計算の過程を説明してください。",
+        "additional_kwargs": {},
+        "response_metadata": {},
+        "id": "4e2cfca2-0a25-45a4-9772-3c807bf10cee",
+        "type": "human"
+      },
+      {
+        "content": "はい、承知いたしました。\n\nまず、最初のステップで3と4を足しました。\n3 + 4 = 7\n\n次に、その結果の7に5を掛けました。\n7 × 5 = 35\n\nしたがって、最終的な答えは35です。",
+        "additional_kwargs": {
+          "__gemini_function_call_thought_signatures__": {}
+        },
+        "response_metadata": {
+          "model_provider": "google-genai"
+        },
+        "tool_call_chunks": [],
+        "id": "run-019b7e98-0519-7000-8000-08e4e888334f",
+        "tool_calls": [],
+        "invalid_tool_calls": [],
+        "type": "ai"
+      }
+    ]
+  },
+  "next": [],
+  "tasks": [],
+  "metadata": {
+    "source": "fork",
+    "step": 9,
+    "parents": {},
+    "thread_id": "b24df111-f0a2-4877-9e0c-3ba238fea6a7"
+  },
+  "created_at": "2026-01-02T12:14:34.112Z",
+  "checkpoint": {
+    "thread_id": "b24df111-f0a2-4877-9e0c-3ba238fea6a7",
+    "checkpoint_id": "1f0e7d49-9654-6800-8008-459bf8460dbd",
+    "checkpoint_ns": "",
+    "checkpoint_map": null
+  },
+  "parent_checkpoint": {
+    "thread_id": "b24df111-f0a2-4877-9e0c-3ba238fea6a7",
+    "checkpoint_id": "1f0e7d32-5c86-6090-8007-0ca433f62d39",
+    "checkpoint_ns": "",
+    "checkpoint_map": null
+  }
+}

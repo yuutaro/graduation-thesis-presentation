@@ -1,0 +1,10 @@
+{
+  "count": 1000,
+  "rag": false,
+  "model": "gpt-5.2-2025-12-11",
+  "temperature": 0.9,
+  "note": "",
+  "mock": false,
+  "runId": "2026-01-31T11-47-56-129Z_gpt-5.2-2025-12-11_rag_off",
+  "timestamp": "2026-01-31T11:47:56.131Z"
+}

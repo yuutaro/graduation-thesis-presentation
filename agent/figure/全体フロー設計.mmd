@@ -1,0 +1,26 @@
+graph TD
+    %% Input
+    Input[開始: 目標分布と生成総数] --> Director
+
+    %% Main Control Loop
+    subgraph "Main Orchestration"
+        Director{<b>Director Agent</b><br>進捗管理 & 指示出し}
+        CheckState{目標達成？}
+    end
+
+    Director --> CheckState
+    CheckState -- "No (不足あり)" --> Mapper(Send / Parallel Execution)
+    CheckState -- "Yes (完了)" --> DBCommitter
+
+    %% Parallel Workers
+    subgraph "Worker Layer (Parallel)"
+        Mapper --> Scenarist[<b>Scenarist Agent</b><br>1シナリオ生成<br>構成+執筆+JSON化]
+    end
+
+    %% Aggregation
+    Scenarist -- "結果をStateにAppend" --> Director
+
+    %% Finalize
+    subgraph "Finalization"
+        DBCommitter[<b>DB Committer Node</b><br>Prisma Transaction<br>ID解決 & 保存] --> End((終了))
+    end

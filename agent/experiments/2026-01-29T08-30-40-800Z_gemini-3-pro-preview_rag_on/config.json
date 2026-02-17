@@ -1,0 +1,10 @@
+{
+  "count": 1000,
+  "rag": true,
+  "model": "gemini-3-pro-preview",
+  "temperature": 0.9,
+  "note": "",
+  "mock": false,
+  "runId": "2026-01-29T08-30-40-800Z_gemini-3-pro-preview_rag_on",
+  "timestamp": "2026-01-29T08:30:40.800Z"
+}

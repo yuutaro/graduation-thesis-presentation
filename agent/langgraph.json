@@ -1,0 +1,9 @@
+{
+  "dependencies": ["."],
+  "graphs": {
+    "data-generator": "./src/graph.ts:graph",
+    "example-agent": "./example/index.ts:agent",
+    "example-agent-2": "./example/index2.ts:agent"
+  },
+  "env": ".env"
+}
