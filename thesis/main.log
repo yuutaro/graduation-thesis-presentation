@@ -1,4 +1,4 @@
-This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.uptex) (TeX Live 2023/Debian) (preloaded format=uplatex 2026.1.29)  16 FEB 2026 23:13
+This is e-upTeX, Version 3.141592653-p4.1.0-u1.29-230214-2.6 (utf8.uptex) (TeX Live 2023/Debian) (preloaded format=uplatex 2026.1.29)  18 FEB 2026 14:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -920,30 +920,30 @@ LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
 (Font)              scaled to size 11.09619pt on input line 43.
 [3]) (./chapters/02_related_work.tex [4] [5]) (./chapters/03_proposal.tex [6]
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 7.39746pt on input line 29.
+(Font)              scaled to size 7.39746pt on input line 26.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 7.39746pt on input line 29.
+(Font)              scaled to size 7.39746pt on input line 26.
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 4.62341pt on input line 30.
+(Font)              scaled to size 4.62341pt on input line 27.
 [7]
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 40.
+(Font)              scaled to size 8.32214pt on input line 37.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
-(Font)              scaled to size 8.32214pt on input line 40.
+(Font)              scaled to size 8.32214pt on input line 37.
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <10> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 77.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 9.24683pt on input line 77.
+(Font)              scaled to size 9.24683pt on input line 74.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <10> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 77.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 74.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 9.24683pt on input line 77.
+(Font)              scaled to size 9.24683pt on input line 74.
 
-Overfull \hbox (17.82614pt too wide) in paragraph at lines 104--105
+Overfull \hbox (17.82614pt too wide) in paragraph at lines 101--102
  [][] 
  []
 
-[8] [9] [10]) (./chapters/04_platform.tex [11]
+[8] [9]) (./chapters/04_platform.tex [10] [11]
 Underfull \hbox (badness 1371) in paragraph at lines 56--58
 \JY2/gt/m/n/10 ■ デ ィレクトリベ ース ・ ル ーテ ィングの採用[] \JY2/mc/m/n/12 ソ ースコ ード構成 （\OT1/cmr/m/n/12 sr-c/app \JY2/mc/m/n/12 配下 ） に
  []
@@ -968,41 +968,39 @@ Overfull \hbox (33.4879pt too wide) in paragraph at lines 162--163
  [][] 
  []
 
-[15] [16] [17] [18] [19] [20] [21] [22] [23] [24]) (./chapters/05_evaluation.tex [25]
+[15] [16] [17] [18] [19] [20] [21] [22]) (./chapters/05_evaluation.tex [23] [24] (./example-data.jsonc
 LaTeX Font Info:    Font shape `JT2/mc/m/n' will be
-(Font)              scaled to size 6.47278pt on input line 41.
-LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 41.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 41.
+(Font)              scaled to size 6.47278pt on input line 1.
+LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 1.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 1.
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 41.
+(Font)              for symbol `textbraceleft' on input line 1.
 
-[26] [27]
+[25] [26] [27] [28] [29] [30] [31]) [32]
+Overfull \hbox (245.72339pt too wide) in paragraph at lines 53--54
+\JY2/mc/m/n/12 ントした ． 分かち書きおよび集計は ， 実験用スクリプト （\OT1/cmtt/m/n/12 agent/scripts/experiment/analysis/vocabulary/analyze[]vocabulary.ts\JY2/mc/m/n/12 ）
+ []
+
 File: figure/vocabulary_growth_comparison.png Graphic file (type bmp)
 <figure/vocabulary_growth_comparison.png>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[28]
+[33] [34]
 File: figure/similarity_distribution_grid_v2.png Graphic file (type bmp)
 <figure/similarity_distribution_grid_v2.png>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[29] [30] [31]
+[35] [36] [37]
 LaTeX Font Info:    Font shape `JT2/mc/bx/n' in size <7> not available
-(Font)              Font shape `JT2/gt/m/n' tried instead on input line 217.
+(Font)              Font shape `JT2/gt/m/n' tried instead on input line 187.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
-(Font)              scaled to size 6.47278pt on input line 217.
+(Font)              scaled to size 6.47278pt on input line 187.
 LaTeX Font Info:    Font shape `JY2/mc/bx/n' in size <7> not available
-(Font)              Font shape `JY2/gt/m/n' tried instead on input line 217.
+(Font)              Font shape `JY2/gt/m/n' tried instead on input line 187.
 LaTeX Font Info:    Font shape `JY2/gt/m/n' will be
-(Font)              scaled to size 6.47278pt on input line 217.
-[32] [33]) (./chapters/06_conclusion.tex [34])
+(Font)              scaled to size 6.47278pt on input line 187.
+[38]) (./chapters/06_conclusion.tex [39]) [40]
 LaTeX Font Info:    Font shape `JT2/gt/m/it' in size <10> not available
 (Font)              Font shape `JT2/gt/m/n' tried instead on input line 152.
 LaTeX Font Info:    Font shape `JT2/gt/m/n' will be
@@ -1019,7 +1017,7 @@ LaTeX Font Info:    Font shape `JY2/mc/m/sc' in size <10> not available
 (Font)              Font shape `JY2/mc/m/n' tried instead on input line 152.
 LaTeX Font Info:    Font shape `JY2/mc/m/n' will be
 (Font)              scaled to size 9.24683pt on input line 152.
-[35] [36] [37] (./main.aux (./code_listings.aux))
+[41] [42] (./main.aux (./code_listings.aux))
  ***********
 pLaTeX2e <2023-02-14u04>+1, based on
 LaTeX2e <2023-11-01> patch level 1
@@ -1033,12 +1031,12 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27676 strings out of 474880
- 559834 string characters out of 5763319
- 2069820 words of memory out of 5000000
- 49513 multiletter control sequences out of 15000+600000
+ 27681 strings out of 474880
+ 559932 string characters out of 5763319
+ 2148820 words of memory out of 5000000
+ 49514 multiletter control sequences out of 15000+600000
  572816 words of font info for 110 fonts, out of 8000000 for 9000
  934 hyphenation exceptions out of 8191
- 84i,10n,87p,1264b,1866s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 84i,10n,87p,3000b,1857s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on main.dvi (43 pages, 212644 bytes).
+Output written on main.dvi (48 pages, 272236 bytes).

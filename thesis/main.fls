@@ -359,6 +359,9 @@ INPUT chapters/04_platform.tex
 INPUT ./chapters/05_evaluation.tex
 INPUT ./chapters/05_evaluation.tex
 INPUT chapters/05_evaluation.tex
+INPUT ./example-data.jsonc
+INPUT ./example-data.jsonc
+INPUT example-data.jsonc
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/uptex-fonts/jis/upjisr-v.tfm
 INPUT ./figure/vocabulary_growth_comparison.png
 INPUT ./figure/vocabulary_growth_comparison.png

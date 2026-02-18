@@ -1,19 +1,19 @@
 # Fdb version 4
-["biber main"] 1771249824.64028 "main.bcf" "main.bbl" "main" 1771251183.13693 0
-  "main.bcf" 1771251181.45601 108477 f5288a263035882548a5922ee53e677a "latex"
-  "references.bib" 1770891368.68674 6505 fb47df73ed14ff93cd0cc58d170f6f77 ""
+["biber main"] 1771394310.52281 "main.bcf" "main.bbl" "main" 1771394368.42223 0
+  "main.bcf" 1771394366.67257 108477 f5288a263035882548a5922ee53e677a "latex"
+  "references.bib" 1771309633.96414 6505 fb47df73ed14ff93cd0cc58d170f6f77 ""
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["dvipdf"] 1771251181.50847 "main.dvi" "main.pdf" "main" 1771251183.1385 0
-  "main.dvi" 1771251181.45988 212644 7ea7529c4722d2036810be9af06f8d44 "latex"
+["dvipdf"] 1771394366.72439 "main.dvi" "main.pdf" "main" 1771394368.42412 0
+  "main.dvi" 1771394366.67257 272236 af0c0da3453f3c4be8c77571477573d8 "latex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["latex"] 1771251180.38396 "/home/yuutaro/dev/payment-platform-2/thesis/main.tex" "main.dvi" "main" 1771251183.13701 0
+["latex"] 1771394365.56422 "/home/yuutaro/dev/payment-platform-2/thesis/main.tex" "main.dvi" "main" 1771394368.42231 0
   "/etc/texmf/web2c/texmf.cnf" 1769676842.39825 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/home/yuutaro/dev/payment-platform-2/thesis/main.tex" 1771122380.004 10285 eab4067ab898074cb444907292e7eddf ""
+  "/home/yuutaro/dev/payment-platform-2/thesis/main.tex" 1771309633.96414 10285 eab4067ab898074cb444907292e7eddf ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm0700.tfm" 1136768653 1536 73da8e8f1d2a4c957d51ca133585586b ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -181,22 +181,23 @@
   "/usr/share/texmf/tex/latex/CJK/mule/MULEenc.sty" 1634405102 12177 48c95ebf85a580326918e5eb490b477b ""
   "/usr/share/texmf/web2c/texmf.cnf" 1707919699 40399 f2c302f7d2af602abb742093540a5834 ""
   "/var/lib/texmf/web2c/euptex/uplatex.fmt" 1769676874 8149552 4680a1f1f8c176428ff119e173659c79 ""
-  "chapters/01_introduction.tex" 1771121476.68191 9883 e0f19385ccf42ddf9aec2dbbde8a4cef ""
-  "chapters/02_related_work.tex" 1771121476.0761 6783 d36b4ac27661532ee4ee4b8710fd491f ""
-  "chapters/03_proposal.tex" 1771121476.16264 13459 6559f7164a03a7ec6bb7f2757d9d73ea ""
-  "chapters/04_platform.tex" 1771121476.24525 39134 87827397784d6fa8bcc26bb58eb881bd ""
-  "chapters/05_evaluation.tex" 1771251179.11291 27915 d8c6fc9367919f89940e6ee20ca78162 ""
-  "chapters/06_conclusion.tex" 1771205727.73041 3586 343d8f8eb28df26e4eac1dfa8b5742f5 ""
-  "code_listings.aux" 1771251180.98816 3815 96938befc58eab080bdaaf3dc4483a46 "latex"
-  "code_listings.tex" 1769676045.68902 2692 deb63162a91b435be3bccc3ae6c04de6 ""
-  "figure/similarity_distribution_grid_v2.png" 1770888953.67873 489179 5e61fb161c05d2111c726a62d6d1a777 ""
-  "figure/vocabulary_growth_comparison.png" 1770889632.54464 445061 ca0dbd346dda2500233f1aa1114ad5d8 ""
-  "iathesis.sty" 1769676045.7513 3330 2b94ddfa986cb51aea45653c4679af13 ""
-  "main.aux" 1771251181.45215 19614 9a4435dba843eb325216c8840b0c63c8 "latex"
-  "main.bbl" 1771249825.26515 26852 f00a381d9c91d86a9690898013474c34 "biber main"
-  "main.run.xml" 1771251181.45988 2305 52095dfad395b381e9a32937e764a41c "latex"
-  "main.tex" 1771122380.004 10285 eab4067ab898074cb444907292e7eddf ""
-  "main.toc" 1771251181.45988 8441 687c1d225c2dbc96c3adfc565d046e6f "latex"
+  "chapters/01_introduction.tex" 1771333916.03203 9874 c6dd224a5fb6bfb442a2a5ef3904f967 ""
+  "chapters/02_related_work.tex" 1771321634.50622 6783 d36b4ac27661532ee4ee4b8710fd491f ""
+  "chapters/03_proposal.tex" 1771334709.55193 12922 936ad3070fe828b8d79e430361bff8f9 ""
+  "chapters/04_platform.tex" 1771324214.38155 34547 03dbbcbd2da3f29b6e303fcdea431299 ""
+  "chapters/05_evaluation.tex" 1771391472.19489 28914 f05ec1af55180cb1dd0da4eac8098df0 ""
+  "chapters/06_conclusion.tex" 1771394301.98272 3633 c3f8546826daa9dc3455ea2319ca973c ""
+  "code_listings.aux" 1771394366.16846 3815 96938befc58eab080bdaaf3dc4483a46 "latex"
+  "code_listings.tex" 1771309633.95146 2692 deb63162a91b435be3bccc3ae6c04de6 ""
+  "example-data.jsonc" 1771330241.09111 20731 d52c560e075fa4c760c06c2d317fed0b ""
+  "figure/similarity_distribution_grid_v2.png" 1771309633.95146 489179 5e61fb161c05d2111c726a62d6d1a777 ""
+  "figure/vocabulary_growth_comparison.png" 1771309633.95569 445061 ca0dbd346dda2500233f1aa1114ad5d8 ""
+  "iathesis.sty" 1771309633.95569 3330 2b94ddfa986cb51aea45653c4679af13 ""
+  "main.aux" 1771394366.6686 19373 208faa38394b3cdc93de280210497ee6 "latex"
+  "main.bbl" 1771394311.22988 26852 f00a381d9c91d86a9690898013474c34 "biber main"
+  "main.run.xml" 1771394366.67257 2305 52095dfad395b381e9a32937e764a41c "latex"
+  "main.tex" 1771309633.96414 10285 eab4067ab898074cb444907292e7eddf ""
+  "main.toc" 1771394366.67257 8279 85065c115766f45cd038d9c04493dc9e "latex"
   (generated)
   "code_listings.aux"
   "main.aux"

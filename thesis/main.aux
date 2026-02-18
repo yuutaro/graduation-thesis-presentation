@@ -21,7 +21,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {1.1}背景}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.1}クリエイターエコノミーの拡大と作品流通の変容}{1}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.2}物理的な展示・即売会における制約とアーカイブの欠如}{1}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}一点もの取引における価格決定と信頼性の課題}{2}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.3}一点物取引における価格決定と信頼性の課題}{2}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {1.1.4}共同体による創作活動と収益分配の複雑性}{2}{}\protected@file@percent }
 \abx@aux@cite{0}{fakerjs}
 \abx@aux@segm{0}{0}{fakerjs}
@@ -71,132 +71,130 @@
 \newlabel{lst:prompt_scenarist}{{2}{8}{}{}{}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2}Scenarist Agent（データ実装）のシステムプロンプト}{8}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.3}社会的シナリオのデータモデル}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Concept}{8}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces 社会的シナリオ生成エージェントのシステムアーキテクチャ}}{9}{}\protected@file@percent }
 \newlabel{fig:agent_architecture}{{1}{9}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.1}Concept}{9}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.2}Community}{9}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.3.3}Output}{9}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.4}記憶機構とRAG}{10}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.1}ベクトル検索による重複検知}{10}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5}プロンプトエンジニアリング}{10}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.1}Few-Shot Prompting with Anti-Patterns}{10}{}\protected@file@percent }
+\abx@aux@cite{0}{nextjs}
+\abx@aux@segm{0}{0}{nextjs}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {3.5.2}Persona Adoption}{11}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {4}実験環境：一点物売買プラットフォーム}{11}{}\protected@file@percent }
 \newlabel{chap:platform}{{4}{11}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.1}プラットフォームの概要}{11}{}\protected@file@percent }
-\abx@aux@cite{0}{nextjs}
-\abx@aux@segm{0}{0}{nextjs}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}システム構成}{11}{}\protected@file@percent }
 \@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Payment Platform 2 のシステム構成}}{12}{}\protected@file@percent }
 \newlabel{fig:platform_architecture}{{2}{12}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}システム構成}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}フロントエンド}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{ディレクトリベース・ルーティングの採用}{12}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Server Actionsとデータ取得の最適化}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ 認証と認可}{12}{}\protected@file@percent }
 \abx@aux@cite{0}{nestjs}
 \abx@aux@segm{0}{0}{nestjs}
 \abx@aux@cite{0}{postgresql}
 \abx@aux@segm{0}{0}{postgresql}
-\@writefile{toc}{\contentsline {paragraph}{ 認証と認可}{13}{}\protected@file@percent }
+\abx@aux@cite{0}{prisma}
+\abx@aux@segm{0}{0}{prisma}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}バックエンド}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{モジュール分割による関心の分離}{13}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{非同期イベント処理}{13}{}\protected@file@percent }
-\abx@aux@cite{0}{prisma}
-\abx@aux@segm{0}{0}{prisma}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}データベース}{13}{}\protected@file@percent }
 \abx@aux@cite{0}{stripe}
 \abx@aux@segm{0}{0}{stripe}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}データベース}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{Prisma ORMによる型安全なデータアクセス}{14}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{スキーマ駆動開発}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}決済および送金基盤 (Stripe Connect)}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{連結アカウントによるユーザー管理}{14}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{支払いと送金の分離}{14}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{オークションにおける与信枠の活用}{15}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{オークションにおける与信枠の活用}{14}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces User, Item, Project のER図（主要なリレーションのみ抜粋）}}{15}{}\protected@file@percent }
+\newlabel{fig:er_diagram}{{3}{15}{}{}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3}データモデル設計}{15}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Userモデル}{15}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces User, Item, Project のER図（主要なリレーションのみ抜粋）}}{16}{}\protected@file@percent }
-\newlabel{fig:er_diagram}{{3}{16}{}{}{}}
-\@writefile{toc}{\contentsline {paragraph}{公開識別子とポートフォリオ機能}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{公開識別子とポートフォリオ機能}{15}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{経済的主体としての属性}{16}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{多層的なリレーション}{16}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Itemモデル}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{ナラティブの保存}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{販売ロジックの抽象化}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{ステータス管理}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Itemモデル}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{説明文の保存}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{販売ロジックの抽象化}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{ステータス管理}{16}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Projectモデル}{17}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{ガバナンス構造の表現}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{経済圏としての機能}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Project管理方式}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Cooperative Mode}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{収益分配の単位}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Project管理方式}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.1}Cooperative Mode}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{意義と適用領域}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{仕様詳細}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Managed Mode}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{意義と適用領域}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{仕様詳細}{18}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.2}Managed Mode}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{意義と適用領域}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Theme Mode}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{意義と適用領域}{18}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{仕様詳細}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.3}Theme Mode}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{意義と適用領域}{19}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{仕様詳細}{20}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Project 管理方式の比較}{20}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces インダストリアルアートの授業}}{20}{}\protected@file@percent }
-\newlabel{tab:sample}{{1}{20}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}統合型検索システム}{20}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}設計思想: 探索的検索への対応}{21}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}アーキテクチャ: 並列クエリ実行モデル}{21}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}インターフェース: 階層的情報の統合表示}{21}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}販売形態と価格決定アルゴリズム}{22}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}イングリッシュ・オークション}{22}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{自動入札アルゴリズム}{22}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{連続的な与信枠管理フロー}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}複数点式オークション}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{当選者決定ロジック}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{Pay-as-Bidによる収益最大化}{23}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{取引および決済フローの詳細}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.3}抽選販売}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{フローとステート管理}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.4}定額販売}{24}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}テストデータに対する要件と課題}{25}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {5}評価実験}{25}{}\protected@file@percent }
-\newlabel{chap:evaluation}{{5}{25}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}実験設定}{26}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 実験条件とパラメータ}}{26}{}\protected@file@percent }
-\newlabel{tab:conditions}{{2}{26}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}生成データの実例}{26}{}\protected@file@percent }
-\newlabel{lst:generated_example}{{3}{26}{}{}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}生成されたシナリオデータの例（夜間大学・無線同好会）}{26}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}評価1: 語彙数の増加推移}{28}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}解析手法}{28}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}結果と考察}{28}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 生成数に伴うユニーク語彙数の増加推移}}{29}{}\protected@file@percent }
-\newlabel{fig:vocabulary_growth}{{4}{29}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}評価2: ベクトル類似度による重複検知}{29}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}解析手法}{29}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}結果と考察}{29}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 生成データ間のコサイン類似度分布（全プロパティ結合Embedding）}}{30}{}\protected@file@percent }
-\newlabel{fig:similarity_histogram}{{5}{30}{}{}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces RAG有無による平均類似度の変化と効果量}}{30}{}\protected@file@percent }
-\newlabel{tab:similarity_stats}{{3}{30}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}評価3: LLM Judgeによる定性評価}{30}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}評価基準}{30}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}結果概要}{31}{}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces LLM Judgeによる定性評価結果（各条件20件抽出，5段階評価）}}{31}{}\protected@file@percent }
-\newlabel{tab:judge_results}{{4}{31}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}定性的考察：具体性と専門性}{31}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}評価4 数値的類似度と意味的多様性の関係}{32}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.1}GPT-5.2}{32}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces GPT-5.2 高類似度ペア (High: 0.89)}}{33}{}\protected@file@percent }
-\newlabel{fig:gpt_high_comparison}{{6}{33}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces GPT-5.2 低類似度ペア (Low: 0.74)}}{33}{}\protected@file@percent }
-\newlabel{fig:gpt_low_comparison}{{7}{33}{}{}{}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.2}Gemini 3 Pro}{33}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Gemini 3 Pro 高類似度ペア (High: 0.95)}}{33}{}\protected@file@percent }
-\newlabel{fig:gemini_high_comparison}{{8}{33}{}{}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Gemini 3 Pro 低類似度ペア (Low: 0.73)}}{34}{}\protected@file@percent }
-\newlabel{fig:gemini_low_comparison}{{9}{34}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}まとめ}{34}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6}結論}{34}{}\protected@file@percent }
-\newlabel{chap:conclusion}{{6}{34}{}{}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.1}まとめ}{34}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {6.2}今後の展望}{35}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{謝辞}{35}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.4.4}Project 管理方式の比較}{19}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Project管理方式の比較}}{19}{}\protected@file@percent }
+\newlabel{tab:project_mode_comparison}{{1}{19}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}統合型検索システム}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}設計思想: 探索的検索への対応}{19}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}アーキテクチャ: 並列クエリ実行モデル}{20}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}インターフェース: 階層的情報の統合表示}{20}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}販売形態と価格決定アルゴリズム}{20}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}イングリッシュ・オークション}{21}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{自動入札アルゴリズム}{21}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{連続的な与信枠管理フロー}{21}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}複数点式オークション}{21}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{当選者決定ロジック}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Pay-as-Bid方式}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{取引および決済フローの詳細}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.3}抽選販売}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{フローとステート管理}{22}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.4}定額販売}{23}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}テストデータに対する要件と課題}{23}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5}評価実験}{24}{}\protected@file@percent }
+\newlabel{chap:evaluation}{{5}{24}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.1}実験設定}{24}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces 実験条件とパラメータ}}{24}{}\protected@file@percent }
+\newlabel{tab:conditions}{{2}{24}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2}生成データの実例}{25}{}\protected@file@percent }
+\newlabel{lst:generated_example}{{3}{25}{}{}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {3}生成されたシナリオデータの例（夜間大学・無線同好会）}{25}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3}語彙数の増加推移}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.1}解析手法}{33}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.3.2}結果と考察}{33}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces 生成数に伴うユニーク語彙数の増加推移}}{34}{}\protected@file@percent }
+\newlabel{fig:vocabulary_growth}{{4}{34}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4}ベクトル類似度による重複検知}{34}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.1}解析手法}{34}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.4.2}結果と考察}{35}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces 生成データ間のコサイン類似度分布（全プロパティ結合Embedding）}}{35}{}\protected@file@percent }
+\newlabel{fig:similarity_histogram}{{5}{35}{}{}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces RAG有無による平均類似度の変化と効果量}}{35}{}\protected@file@percent }
+\newlabel{tab:similarity_stats}{{3}{35}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5}LLM Judgeによる定性評価}{36}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.1}評価基準}{36}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.2}結果概要}{36}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {4}{\ignorespaces LLM Judgeによる定性評価結果（各条件20件抽出，5段階評価）}}{36}{}\protected@file@percent }
+\newlabel{tab:judge_results}{{4}{36}{}{}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.5.3}定性的考察：具体性と専門性}{37}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6}数値的類似度と意味的多様性の関係}{37}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {5.6.1}モデルの違いによる定性的な評価}{38}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{GPT-5.2 における比較}{38}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces GPT-5.2 高類似度ペア (High: 0.89)}}{38}{}\protected@file@percent }
+\newlabel{fig:gpt_high_comparison}{{6}{38}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces GPT-5.2 低類似度ペア (Low: 0.74)}}{38}{}\protected@file@percent }
+\newlabel{fig:gpt_low_comparison}{{7}{38}{}{}{}}
+\@writefile{toc}{\contentsline {paragraph}{Gemini 3 Pro における比較}{39}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Gemini 3 Pro 高類似度ペア (High: 0.95)}}{39}{}\protected@file@percent }
+\newlabel{fig:gemini_high_comparison}{{8}{39}{}{}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Gemini 3 Pro 低類似度ペア (Low: 0.73)}}{39}{}\protected@file@percent }
+\newlabel{fig:gemini_low_comparison}{{9}{39}{}{}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7}まとめ}{39}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6}結論}{39}{}\protected@file@percent }
+\newlabel{chap:conclusion}{{6}{39}{}{}{}}
+\@writefile{toc}{\contentsline {section}{謝辞}{41}{}\protected@file@percent }
 \abx@aux@read@bbl@mdfivesum{F00A381D9C91D86A9690898013474C34}
 \abx@aux@defaultrefcontext{0}{goldman2023creator}{none/global//global/global}
 \abx@aux@defaultrefcontext{0}{mercari}{none/global//global/global}
@@ -220,4 +218,4 @@
 \abx@aux@defaultrefcontext{0}{nestjs}{none/global//global/global}
 \abx@aux@defaultrefcontext{0}{postgresql}{none/global//global/global}
 \abx@aux@defaultrefcontext{0}{stripe}{none/global//global/global}
-\gdef \@abspage@last{43}
+\gdef \@abspage@last{48}
